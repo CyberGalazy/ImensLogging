@@ -23,12 +23,15 @@ def build_client():
     print("This may take a few minutes...\n")
     
     cmd = [
-        "pyinstaller",
+        sys.executable,                 # Use Python to run PyInstaller module
+        "-m", "PyInstaller",
         "--onefile",                    # Single executable file
         "--console",                    # Console application
         "--name", "pc_logging_client",  # Output name
         "--clean",                      # Clean cache
         "--noconfirm",                  # Overwrite without asking
+        "--hidden-import", "detect_software",  # Include software detection module
+        "--hidden-import", "pc_logger",        # Include logger module
         "client.py"
     ]
     

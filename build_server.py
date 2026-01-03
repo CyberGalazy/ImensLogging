@@ -22,12 +22,14 @@ def build_server():
     print("This may take a few minutes...\n")
     
     cmd = [
-        "pyinstaller",
+        sys.executable,                 # Use Python to run PyInstaller module
+        "-m", "PyInstaller",
         "--onefile",                    # Single executable file
         "--console",                    # Console application
         "--name", "pc_logging_server",  # Output name
         "--clean",                      # Clean cache
         "--noconfirm",                  # Overwrite without asking
+        "--hidden-import", "pc_logger",  # Include logger module
         "server.py"
     ]
     

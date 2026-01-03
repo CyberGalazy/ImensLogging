@@ -73,7 +73,14 @@ class LoggingClient:
                 return False
                 
         except URLError as e:
-            print(f"[ERROR] Could not connect to server at {self.server_url}: {e}")
+            error_msg = str(e)
+            if "refused" in error_msg.lower() or "10061" in error_msg:
+                print(f"[ERROR] Connection refused to {self.server_url}")
+                print(f"       → Server may not be running")
+                print(f"       → Firewall may be blocking port 8080")
+                print(f"       → Check IP address is correct")
+            else:
+                print(f"[ERROR] Could not connect to server at {self.server_url}: {e}")
             return False
         except HTTPError as e:
             print(f"[ERROR] Server error: {e.code} - {e.reason}")
@@ -88,7 +95,22 @@ class LoggingClient:
             request = Request(f"{self.server_url}/status", method='GET')
             response = urlopen(request, timeout=5)
             result = json.loads(response.read().decode('utf-8'))
-            return result.get('status') == 'running'
+            if result.get('status') == 'running':
+                print(f"[OK] Server connection successful!")
+                return True
+            return False
+        except URLError as e:
+            error_msg = str(e)
+            if "refused" in error_msg.lower() or "10061" in error_msg:
+                print(f"[ERROR] Connection refused - Server not running or firewall blocking")
+                print(f"       Troubleshooting:")
+                print(f"       1. Make sure server is running on laptop")
+                print(f"       2. Check Windows Firewall allows port 8080")
+                print(f"       3. Verify IP address: {self.server_url}")
+                print(f"       4. Test with: ping {self.server_url.split('://')[1].split(':')[0]}")
+            else:
+                print(f"[ERROR] Cannot reach server: {e}")
+            return False
         except Exception as e:
             print(f"[ERROR] Cannot reach server: {e}")
             return False
