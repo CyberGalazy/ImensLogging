@@ -14,9 +14,13 @@ A distributed logging system to track PC status, running software, and timestamp
 
 ## Requirements
 
+**For Building (your laptop with Python):**
 - Python 3.6 or higher
-- No external dependencies (uses only Python standard library)
+- PyInstaller (installed automatically by build scripts)
+
+**For Running (gaming PCs - NO Python needed!):**
 - Windows OS (for automatic software detection)
+- Standalone executables (built once, then no Python needed)
 - All PCs must be on the same network
 
 ## Deployment Architecture
@@ -36,6 +40,41 @@ A distributed logging system to track PC status, running software, and timestamp
 ```
 
 ## Quick Start - Deployment Guide
+
+### Option A: Standalone Executables (Recommended - No Python on Clients!)
+
+**Build once on your laptop (with Python), then deploy .exe files:**
+
+1. **Build the executables:**
+   ```bash
+   # Build client executable
+   python build_client.py
+   
+   # Build server executable  
+   python build_server.py
+   ```
+   
+   This creates:
+   - `dist/pc_logging_client.exe` - Copy to each gaming PC
+   - `dist/pc_logging_server.exe` - Use on your laptop
+
+2. **Deploy to gaming PCs:**
+   - Copy `pc_logging_client.exe` to each gaming PC
+   - Copy `client_config.txt` to each gaming PC
+   - Copy `start_client_standalone.bat` to each gaming PC
+   - Edit `client_config.txt` with your laptop's IP
+
+3. **Run:**
+   - **Laptop:** Double-click `start_server_standalone.bat` (or run `pc_logging_server.exe`)
+   - **Gaming PCs:** Double-click `start_client_standalone.bat` (or run `pc_logging_client.exe`)
+
+**No Python installation needed on gaming PCs!**
+
+---
+
+### Option B: Python Installation Required
+
+If you prefer to run Python scripts directly:
 
 ### Step 1: Setup Server on Your Laptop
 
@@ -236,14 +275,19 @@ All logs are stored in `pc_logs.json` in the same directory. The file structure 
 
 ```
 ImensLogging/
-├── pc_logger.py          # Core logging class
-├── server.py             # HTTP server (runs on laptop)
-├── client.py             # Client agent (runs on gaming PCs)
-├── detect_software.py    # Software detection utility
-├── start_server.bat      # Quick start server script
-├── start_client.bat      # Quick start client script
-├── pc_logs.json         # Log data (created automatically)
-└── README.md            # This file
+├── pc_logger.py              # Core logging class
+├── server.py                 # HTTP server (runs on laptop)
+├── client.py                 # Client agent (runs on gaming PCs)
+├── detect_software.py        # Software detection utility
+├── build_client.py           # Build standalone client .exe
+├── build_server.py           # Build standalone server .exe
+├── start_server.bat          # Quick start server (Python)
+├── start_client.bat          # Quick start client (Python)
+├── start_server_standalone.bat  # Quick start server (.exe)
+├── start_client_standalone.bat  # Quick start client (.exe)
+├── client_config.txt         # Client configuration (server IP)
+├── pc_logs.json             # Log data (created automatically)
+└── README.md                # This file
 ```
 
 ## Notes
