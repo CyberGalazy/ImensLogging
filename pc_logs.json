@@ -22,6 +22,15 @@
       "status": "offline",
       "software": [],
       "last_updated": "2025-12-13 17:12:16"
+    },
+    "TEST-PC": {
+      "status": "running",
+      "software": [
+        "Test App 1",
+        "Test App 2",
+        "Test App 3"
+      ],
+      "last_updated": "2026-01-03 13:02:29"
     }
   }
 }
