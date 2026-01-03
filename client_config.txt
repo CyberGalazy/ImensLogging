@@ -1,0 +1,4 @@
+# PC Logging Client Configuration
+# Enter your laptop's IP address below (replace with your actual IP)
+SERVER_IP=192.168.56.1
+

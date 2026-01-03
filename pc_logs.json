@@ -1,0 +1,27 @@
+{
+  "pcs": {
+    "PC-01": {
+      "status": "running",
+      "software": [
+        "Steam",
+        "Counter-Strike 2",
+        "Discord"
+      ],
+      "last_updated": "2025-12-13 17:12:16"
+    },
+    "PC-02": {
+      "status": "running",
+      "software": [
+        "Epic Games Launcher",
+        "Spotify",
+        "OBS Studio"
+      ],
+      "last_updated": "2025-12-13 17:12:16"
+    },
+    "PC-03": {
+      "status": "offline",
+      "software": [],
+      "last_updated": "2025-12-13 17:12:16"
+    }
+  }
+}
